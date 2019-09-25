@@ -168,7 +168,9 @@ var dSize = func() int {
 }()
 
 // cPool is a pool of buffers for use in reader.compressionBuffer. Buffers are
-// taken from the pool in NewReaderDict, returned in reader.Close()
+// taken from the pool in NewReaderDict, returned in reader.Close(). Returns a
+// pointer to a slice to avoid the extra allocation of returning the slice as a
+// value.
 var cPool = sync.Pool{
 	New: func() interface{} {
 		buff := make([]byte, cSize)
@@ -177,7 +179,9 @@ var cPool = sync.Pool{
 }
 
 // dPool is a pool of buffers for use in reader.decompressionBuffer. Buffers are
-// taken from the pool in NewReaderDict, returned in reader.Close()
+// taken from the pool in NewReaderDict, returned in reader.Close(). Returns a
+// pointer to a slice to avoid the extra allocation of returning the slice as a
+// value.
 var dPool = sync.Pool{
 	New: func() interface{} {
 		buff := make([]byte, dSize)
